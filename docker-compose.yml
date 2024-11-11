@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=469zus&=s-w34fo7c@7)01em3%1ze(x%0%+gc$(ghay6hb(g^
+      - DEBUG=False
+    ports:
+      - 8000:8000
