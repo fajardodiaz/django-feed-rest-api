@@ -1,15 +1,18 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import status, viewsets
+
+from profiles_api import serializers, models
 
 
-from profiles_api import serializers
-
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating and updating user profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
 
 class HelloViewSet(viewsets.ViewSet):
     """Test API Viewset"""
-    serialier_class = serializers.HelloSerializer
+    serializer_class = serializers.HelloSerializer
 
     def list(self, request):
         """Return a hello message"""
@@ -23,7 +26,7 @@ class HelloViewSet(viewsets.ViewSet):
     
     def create(self, request):
         """Create a new Hello Message"""
-        serializer = self.serialier_class(data=request.data)
+        serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             name = serializer.validated_data.get("name")
